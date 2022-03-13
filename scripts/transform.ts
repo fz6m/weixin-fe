@@ -51,6 +51,13 @@ const run = async () => {
     newLines.splice(start, end - start, ...sortedPart);
   });
 
+  const counts = chunks.reduce((total, current) => {
+    total += current.end - current.start
+    return total
+  }, 0)
+
+  console.log(`Total: ${chalk.green(counts)}`)
+
   const newContent = `${newLines.join("\n")}\n`;
   const outputPath = path.join(__dirname, "../README.md");
   fs.writeFileSync(outputPath, newContent, "utf-8");
