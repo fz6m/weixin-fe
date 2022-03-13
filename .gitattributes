@@ -1,0 +1,11 @@
+*.html linguist-detectable=false
+*.js linguist-detectable=false
+*.ts linguist-detectable=false
+.husky/* linguist-detectable=false
+.husky/commit-msg linguist-detectable=false
+.husky/pre-commit linguist-detectable=false
+.env linguist-detectable=false
+*.css linguist-detectable=false
+*.scss linguist-detectable=false
+*.less linguist-detectable=false
+*.json linguist-detectable=false
