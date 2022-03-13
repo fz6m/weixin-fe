@@ -1,4 +1,3 @@
-
 import "zx/globals";
 import { cloneDeep, trim } from "lodash";
 
@@ -39,22 +38,22 @@ const run = async () => {
 
   const partTransform = (part: string[]) => {
     // only replace once
-    part = part.map(l => l.replace('前端', '**前端**'))
-    part.sort((a, b) => a.localeCompare(b))
-    return part
-  }
+    part = part.map((l) => l.replace("前端", "**前端**"));
+    part.sort((a, b) => a.localeCompare(b));
+    return part;
+  };
   chunks.forEach(({ start, end }) => {
-    const part = newLines.slice(start, end).map((l) => trim(l))
+    const part = newLines.slice(start, end).map((l) => trim(l));
     const sortedPart = [
-      ...partTransform(part.filter(l => l.includes('✓'))),
-      ...partTransform(part.filter(l => !l.includes('✓')))
-    ]
-    newLines.splice(start, end - start, ...sortedPart)
+      ...partTransform(part.filter((l) => l.includes("✓"))),
+      ...partTransform(part.filter((l) => !l.includes("✓"))),
+    ];
+    newLines.splice(start, end - start, ...sortedPart);
   });
 
-  const newContent = `${newLines.join('\n')}\n`
-  const outputPath = path.join(__dirname, '../README.md')
-  fs.writeFileSync(outputPath, newContent, 'utf-8')
+  const newContent = `${newLines.join("\n")}\n`;
+  const outputPath = path.join(__dirname, "../README.md");
+  fs.writeFileSync(outputPath, newContent, "utf-8");
 };
 
 run();
