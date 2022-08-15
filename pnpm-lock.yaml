@@ -1,4 +1,4 @@
-lockfileVersion: 5.3
+lockfileVersion: 5.4
 
 specifiers:
   '@types/lodash': ^4.14.179
@@ -770,7 +770,7 @@ packages:
       has-flag: 4.0.0
     dev: true
 
-  /swcr/1.1.4_1199e529888968b24c59e9804c6f99fe:
+  /swcr/1.1.4_cgm6kkmirfuletcz5gaey34z7y:
     resolution: {integrity: sha512-6n1I9JlVgK6T5cb7hjdkrQ+iZrRzYsE/6FsxqXFTnFq4YCEUY7xDbL7n7Y0ZxMDbDIdw7kDEn3xl3Cu7NOHouA==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -788,7 +788,7 @@ packages:
       '@swc/core': 1.2.154
       cross-spawn: 7.0.3
       regenerator-runtime: 0.13.9
-      swcr: 1.1.4_1199e529888968b24c59e9804c6f99fe
+      swcr: 1.1.4_cgm6kkmirfuletcz5gaey34z7y
     dev: true
 
   /term-size/2.2.1:
