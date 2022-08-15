@@ -1,5 +1,5 @@
 import "zx/globals";
-import { cloneDeep, trim } from "lodash";
+import { cloneDeep, trim, uniqBy, groupBy, sortBy } from "lodash";
 
 interface IChunk {
   start: number;
@@ -28,7 +28,7 @@ const run = async () => {
       return;
     }
     // find start
-    if (line.includes(`:-:|:-:`)) {
+    if (line.includes(`:-|:-:`)) {
       chunk.start = index + 1;
       return;
     }
@@ -36,27 +36,49 @@ const run = async () => {
 
   const newLines = cloneDeep(lines);
 
-  const partTransform = (part: string[]) => {
-    // only replace once
-    part = part.map((l) => l.replace("前端", "**前端**"));
-    part.sort((a, b) => a.localeCompare(b));
+  const partSortByName = (part: string[]) => {
+    part.sort((a, b) => {
+      const aName = a.split('|')[0]
+      const bName = b.split('|')[0]
+      return aName.localeCompare(bName)
+    });
     return part;
   };
+  const removeDuplicate = (part: string[]) => {
+    return uniqBy(part, (line) => {
+      return trim(line.split('|')[0])
+    })
+  }
+  const sortPart = (part: string[]) => {
+    const priorityGroup = groupBy(part, (line) => {
+      return line.split('|')[1]
+    })
+    const keys = sortBy(Object.keys(priorityGroup)).reverse()
+    console.log('keys: ', keys);
+    keys.forEach(key => {
+      priorityGroup[key] = partSortByName(priorityGroup[key])
+    })
+    return keys.reduce<string[]>((memo, current) => {
+      return [
+        ...memo,
+        ...priorityGroup[current]
+      ]
+    }, [])
+  }
   chunks.forEach(({ start, end }) => {
-    const part = newLines.slice(start, end).map((l) => trim(l));
-    const sortedPart = [
-      ...partTransform(part.filter((l) => l.includes("✓"))),
-      ...partTransform(part.filter((l) => !l.includes("✓"))),
-    ];
+    const part = removeDuplicate(
+      newLines.slice(start, end).map((l) => trim(l))
+    )
+    const sortedPart = sortPart(part)
     newLines.splice(start, end - start, ...sortedPart);
   });
 
   const counts = chunks.reduce((total, current) => {
-    total += current.end - current.start
-    return total
-  }, 0)
+    total += current.end - current.start;
+    return total;
+  }, 0);
 
-  console.log(`Total: ${chalk.green(counts)}`)
+  console.log(`Total: ${chalk.green(counts)}`);
 
   const newContent = `${newLines.join("\n")}\n`;
   const outputPath = path.join(__dirname, "../README.md");
