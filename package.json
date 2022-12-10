@@ -22,14 +22,14 @@
     "build": "swno ./scripts/transform.ts"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.182",
-    "@types/node": "^18.7.3",
+    "@types/lodash": "^4.14.191",
+    "@types/node": "^18.11.13",
     "commit-verify": "^1.0.3",
-    "husky": "^8.0.1",
+    "husky": "^8.0.2",
     "lodash": "^4.17.21",
-    "swno": "^1.2.0",
-    "typescript": "^4.7.4",
-    "zx": "^7.0.8"
+    "swno": "^1.3.1",
+    "typescript": "^4.9.4",
+    "zx": "^7.1.1"
   },
   "license": "MIT"
 }
